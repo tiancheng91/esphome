@@ -25,17 +25,15 @@ button:
 
 # Change the WiFi config to a non-static IP if needed
 wifi:
-  ssid: InfoQ-IoT
-  password: tian1991
-  output_power: 19dB
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  # output_power: 19dB
   fast_connect: true
 
 sensor:
   - platform: wifi_signal
     name: "WiFi Signal Sensor"
     update_interval: 120s
-  - platform: status
-    name: "ESP32 Node Status"
 
 bluetooth_proxy:
   active: true

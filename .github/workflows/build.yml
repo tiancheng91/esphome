@@ -3,8 +3,8 @@ name: Build and Publish ESPHome firmware
 on:
   workflow_dispatch:
     inputs:
-      files:
-        description: Comma-separated list of files to build.
+      file:
+        description: yaml file name
         required: true
         type: string
       name:
@@ -12,47 +12,39 @@ on:
         required: false
         type: string
         default: ESPHome
-      clean:
-        description: Remove deleted files from the build
-        required: false
-        type: boolean
-        default: true
-      manifest_filename:
-        description: Filename of the manifest to write.
-        required: false
-        type: string
-        default: manifest.json
       esphome_version:
         description: Version of ESPHome to build for.
         required: false
         type: string
         default: latest
-jobs:
-  prepare:
-    runs-on: ubuntu-latest
-    outputs:
-      files: ${{ steps.files-array.outputs.files }}
-    steps:
-      - id: files-array
-        run: |
-          files=$(echo "${{ inputs.files }}" | jq -Rcn 'inputs | . / ","')
-          echo ::set-output name=files::$files
+      wifi_ssid:
+        description: Wifi ssid.
+        required: false
+        type: string
+        default: InfoQ
+      wifi_passwd:
+        description: Wifi password.
+        required: false
+        type: string
+        default: "12345678"
 
+jobs:
   build:
-    name: Build ESPHome binary for ${{ matrix.file }}
-    needs: [prepare]
+    name: Build ESPHome binary
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        file: ${{ fromJson(needs.prepare.outputs.files) }}
     outputs:
       esphome-version: ${{ steps.esphome-build.outputs.esphome-version }}
     steps:
       - uses: actions/checkout@v3.5.3
+      - name: setting wifi passwd
+        env:
+          WIFI_SSID: ${{ inputs.wifi_ssid }}
+          WIFI_PASSWD: ${{ inputs.wifi_passwd }}
+        run: sed 's/WIFI_SSID/$WIFI_SSID/g;s/WIFI_PASSWD/$WIFI_PASSWD/g' secrets.yaml.example > secrets.yaml
       - uses: esphome/build-action@v1.5.2
         id: esphome-build
         with:
-          yaml_file: ${{ matrix.file }}
+          yaml_file: ${{ inputs.file }}
           version: ${{ inputs.esphome_version }}
       - run: |
           mkdir output
