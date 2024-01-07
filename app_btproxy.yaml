@@ -30,7 +30,7 @@ wifi:
   output_power: 19dB
   fast_connect: true
   ap:
-    password: 12345678
+    password: "12345678"
 
 captive_portal:
 
