@@ -40,7 +40,9 @@ jobs:
         env:
           WIFI_SSID: ${{ inputs.wifi_ssid }}
           WIFI_PASSWD: ${{ inputs.wifi_passwd }}
-        run: sed 's/WIFI_SSID/{{ $env.WIFI_SSID }}/g;s/WIFI_PASSWD/{{ $env.WIFI_PASSWD }}/g' secrets.yaml.example > secrets.yaml
+        run: sed "s/WIFI_SSID/$WIFI_SSID/g;s/WIFI_PASSWD/$WIFI_PASSWD/g" secrets.yaml.example > secrets.yaml
+      - name: show secrets.yaml
+        run: cat secrets.yaml
       - uses: esphome/build-action@v1.5.2
         id: esphome-build
         with:
