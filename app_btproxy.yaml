@@ -27,8 +27,12 @@ button:
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
-  # output_power: 19dB
+  output_power: 19dB
   fast_connect: true
+  ap:
+    password: 12345678
+
+captive_portal:
 
 sensor:
   - platform: wifi_signal
@@ -41,7 +45,6 @@ bluetooth_proxy:
 esp32_ble_tracker:
   scan_parameters:
     active: true
-# Adjust timing if the defaults do not work in your environment
-#    interval: 1100ms
-#    window: 1100ms
+    interval: 1300ms
+    window: 1300ms
     active: true
