@@ -58,12 +58,12 @@ binary_sensor:
   - platform: gpio
     name: 状态02
     pin: D4
-  - platform: gpio
-    name: 状态03
-    pin: D8
-  - platform: gpio
-    name: 状态04
-    pin: D9
+  # - platform: gpio
+  #   name: 状态03
+  #   pin: D8
+  # - platform: gpio
+  #   name: 状态04
+  #   pin: D9
 
 # gpio 输出
 output:
@@ -73,12 +73,12 @@ output:
   - platform: gpio
     id: gpid_d3
     pin: D3
-  - platform: gpio
-    id: gpid_d10
-    pin: D10
-  - platform: gpio
-    id: gpid_d6
-    pin: D6
+  # - platform: gpio
+  #   id: gpid_d10
+  #   pin: D10
+  # - platform: gpio
+  #   id: gpid_d6
+  #   pin: D6
 
 # 普通开关
 # switch:
@@ -127,20 +127,20 @@ switch:
     turn_off_action:
       - logger.log: "switch02 turn off"
       - lamba: id(click).execute(开关02)
-  - platform: template
-    name: "开关03"
-    lambda: return id(状态3).state
-    turn_on_action: 
-      - logger.log: "switch03 turn on"
-      - lamba: id(click).execute(开关03)
-    turn_off_action:
-      - logger.log: "switch03 turn off"
-      - lamba: id(click).execute(开关03)
-  - platform: template
-    name: "开关04"
-    turn_on_action: 
-      - logger.log: "switch04 turn on"
-      - lamba: id(switch_click).execute(开关04)
-    turn_off_action:
-      - logger.log: "switch04 turn off"
-      - lamba: id(switch_click).execute(开关04)
+  # - platform: template
+  #   name: "开关03"
+  #   lambda: return id(状态3).state
+  #   turn_on_action: 
+  #     - logger.log: "switch03 turn on"
+  #     - lamba: id(click).execute(开关03)
+  #   turn_off_action:
+  #     - logger.log: "switch03 turn off"
+  #     - lamba: id(click).execute(开关03)
+  # - platform: template
+  #   name: "开关04"
+  #   turn_on_action: 
+  #     - logger.log: "switch04 turn on"
+  #     - lamba: id(switch_click).execute(开关04)
+  #   turn_off_action:
+  #     - logger.log: "switch04 turn off"
+  #     - lamba: id(switch_click).execute(开关04)
