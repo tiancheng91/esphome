@@ -40,7 +40,7 @@ script:
     parameters:
       name: string
     then:
-      - lambda: id(name).publish_state(true); delay(0.1s); id(name).publish_state(false);
+      - lambda: id($name).publish_state(true); delay(0.1s); id($name).publish_state(false);
 
 # gpio 输入
 binary_sensor:
