@@ -8,6 +8,7 @@
 # 1,24,26: GND
 # 14,26: 电源3.3v
 # pin24: gpio11 VDD_SPI 供电
+# todo gpio02 是启动控制引脚, 需替换掉
 
 # 继电器状态读取, 状态翻转短按开关50ms
 
@@ -31,6 +32,7 @@ esp32:
 logger:
 api:
 ota:
+# wifi:
 
 script:
   - id: click # 单击
@@ -114,19 +116,19 @@ switch:
     lambda: return id(状态1).state
     turn_on_action: 
       - logger.log: "switch01 turn on"
-      - lamba: id(click).execute(开关01)
+      - lambda: id(click).execute(开关01)
     turn_off_action:
       - logger.log: "switch01 turn off"
-      - lamba: id(click).execute(开关01)
+      - lambda: id(click).execute(开关01)
   - platform: template
     name: "开关02"
     lambda: return id(状态2).state
     turn_on_action: 
       - logger.log: "switch02 turn on"
-      - lamba: id(click).execute(开关02)
+      - lambda: id(click).execute(开关02)
     turn_off_action:
       - logger.log: "switch02 turn off"
-      - lamba: id(click).execute(开关02)
+      - lambda: id(click).execute(开关02)
   # - platform: template
   #   name: "开关03"
   #   lambda: return id(状态3).state
