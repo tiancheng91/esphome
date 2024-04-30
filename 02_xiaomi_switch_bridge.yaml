@@ -44,7 +44,7 @@ script:
 binary_sensor:
   - platform: gpio
     name: 状态01
-    pin: D5
+    pin: 5
     # pin: 
     #   number: D5
     #   mode:     
@@ -57,7 +57,7 @@ binary_sensor:
 
   - platform: gpio
     name: 状态02
-    pin: D4
+    pin: 4
   # - platform: gpio
   #   name: 状态03
   #   pin: D8
@@ -69,10 +69,10 @@ binary_sensor:
 output:
   - platform: gpio
     id: gpio_d2
-    pin: D2
+    pin: 2
   - platform: gpio
     id: gpid_d3
-    pin: D3
+    pin: 3
   # - platform: gpio
   #   id: gpid_d10
   #   pin: D10
