@@ -71,7 +71,7 @@ binary_sensor:
 output:
   - platform: gpio
     id: gpio_d2
-    pin: 2
+    pin: 6
   - platform: gpio
     id: gpid_d3
     pin: 3
