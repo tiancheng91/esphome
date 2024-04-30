@@ -1,0 +1,146 @@
+## 小米/hass 开关状态桥接器 用于双端同步状态, 可作为寄存器使用
+
+### 小米模组io口定义
+## GND: 1, 24, 26, VCC: 14, 26
+## 输入按键1-4: 4, 3, 2, 33 // C3  19(GPIO2),20(GPIO3),21(GPIO10),22(GPIO6)
+## 输出继电器1-4: 5, 6, 7, 8 // C3  27(GPIO5), 28(GPIO4), 29(GPIO08), 30(GPIO09) 
+## reset: 开关任意按键快按三次，再长按 5S 以上，进入清网状态；所有按键指示灯快闪 5 下表示重置成功 （2Hz 频率）
+# 1,24,26: GND
+# 14,26: 电源3.3v
+# pin24: gpio11 VDD_SPI 供电
+
+# 继电器状态读取, 状态翻转短按开关50ms
+
+esphome:
+  name: esp32c3-xiaomi
+  name_add_mac_suffix: true
+  platformio_options:
+    board_build.mcu: esp32c3
+    board_build.variant: esp32c3  
+
+esp32:
+  variant: ESP32C3
+  board: airm2m_core_esp32c3
+  framework:
+    type: esp-idf
+    sdkconfig_options:
+      CONFIG_BT_BLE_50_FEATURES_SUPPORTED: y
+      CONFIG_BT_BLE_42_FEATURES_SUPPORTED: y
+      CONFIG_ESP_TASK_WDT_TIMEOUT_S: "10"    
+
+logger:
+api:
+ota:
+
+script:
+  - id: click # 单击
+    mode: parallel
+    parameters:
+      name: string
+    then:
+      - lambda: id(name).publish_state(true); delay(0.1s); id(name).publish_state(false);
+
+# gpio 输入
+binary_sensor:
+  - platform: gpio
+    name: 状态01
+    pin: D5
+    # pin: 
+    #   number: D5
+    #   mode:     
+    #     input: true
+    #     pulldown: true  // 用于手动上拉下拉
+    #     inverted: true  // 是否需要反转值
+    #     @doc https://esphome.io/guides/configuration-types#config-pin-schema
+    # filters:
+    #   - delayed_on: 10ms  // 去抖, 避免io口状态尖刺
+
+  - platform: gpio
+    name: 状态02
+    pin: D4
+  - platform: gpio
+    name: 状态03
+    pin: D8
+  - platform: gpio
+    name: 状态04
+    pin: D9
+
+# gpio 输出
+output:
+  - platform: gpio
+    id: gpio_d2
+    pin: D2
+  - platform: gpio
+    id: gpid_d3
+    pin: D3
+  - platform: gpio
+    id: gpid_d10
+    pin: D10
+  - platform: gpio
+    id: gpid_d6
+    pin: D6
+
+# 普通开关
+# switch:
+#   - platform: gpio
+#     pin: 25
+#     id: relay
+#     name: "Gate Remote"
+#     icon: "mdi:gate"
+#     on_turn_on:
+#     - delay: 500ms
+#     - switch.turn_off: relay
+
+## template switch
+## https://esphome.io/components/switch/template
+# Example configuration entry
+# switch:
+#   - platform: template
+#     name: "Template Switch"
+#     lambda: |-
+#       if (id(some_binary_sensor).state) {
+#         return true;
+#       } else {
+#         return false;
+#       }
+#     turn_on_action:
+#       - switch.turn_on: switch2
+#     turn_off_action:
+#       - switch.turn_on: switch1
+
+switch:
+  - platform: template
+    name: "开关01"
+    lambda: return id(状态1).state
+    turn_on_action: 
+      - logger.log: "switch01 turn on"
+      - lamba: id(click).execute(开关01)
+    turn_off_action:
+      - logger.log: "switch01 turn off"
+      - lamba: id(click).execute(开关01)
+  - platform: template
+    name: "开关02"
+    lambda: return id(状态2).state
+    turn_on_action: 
+      - logger.log: "switch02 turn on"
+      - lamba: id(click).execute(开关02)
+    turn_off_action:
+      - logger.log: "switch02 turn off"
+      - lamba: id(click).execute(开关02)
+  - platform: template
+    name: "开关03"
+    lambda: return id(状态3).state
+    turn_on_action: 
+      - logger.log: "switch03 turn on"
+      - lamba: id(click).execute(开关03)
+    turn_off_action:
+      - logger.log: "switch03 turn off"
+      - lamba: id(click).execute(开关03)
+  - platform: template
+    name: "开关04"
+    turn_on_action: 
+      - logger.log: "switch04 turn on"
+      - lamba: id(switch_click).execute(开关04)
+    turn_off_action:
+      - logger.log: "switch04 turn off"
+      - lamba: id(switch_click).execute(开关04)
