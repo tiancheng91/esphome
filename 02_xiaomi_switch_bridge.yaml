@@ -30,8 +30,8 @@ esp32:
       CONFIG_ESP_TASK_WDT_TIMEOUT_S: "10"    
 
 logger:
-api:
-ota:
+# api:
+# ota:
 # wifi:
 
 script:
