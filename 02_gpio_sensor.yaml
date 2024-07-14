@@ -14,7 +14,7 @@
 
 esphome:
   name: esp32c3-gpio-sensor
-  name_add_mac_suffix: true
+  # name_add_mac_suffix: true
   platformio_options:
     board_build.mcu: esp32c3
     board_build.variant: esp32c3  
@@ -41,7 +41,7 @@ wifi:
   ap:
     password: "12345678"
 
-captive_portal:
+# captive_portal:
 
 sensor:
   - platform: wifi_signal
