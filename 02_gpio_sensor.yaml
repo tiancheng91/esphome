@@ -31,7 +31,6 @@ esp32:
 
 logger:
 api:
-ota:
 
 button:
   - platform: safe_mode
