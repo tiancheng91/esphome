@@ -32,10 +32,6 @@ esp32:
 logger:
 api:
 
-button:
-  - platform: safe_mode
-    name: ${display_name} (Safe Mode)
-
 # Change the WiFi config to a non-static IP if needed
 wifi:
   ssid: !secret wifi_ssid
