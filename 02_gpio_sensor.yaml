@@ -48,8 +48,8 @@ sensor:
     name: "WiFi Signal Sensor"
     update_interval: 120s
 
-bluetooth_proxy:
-  active: true
+# bluetooth_proxy:
+#   active: true
 
 # esp32_ble_tracker:
 #   scan_parameters:
