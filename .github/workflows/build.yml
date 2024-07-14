@@ -35,7 +35,7 @@ jobs:
     outputs:
       esphome-version: ${{ steps.esphome-build.outputs.esphome-version }}
     steps:
-      - uses: actions/checkout@v3.5.3
+      - uses: actions/checkout@v4.1.7
       - name: setting wifi passwd
         env:
           WIFI_SSID: ${{ inputs.wifi_ssid }}
@@ -43,7 +43,7 @@ jobs:
         run: sed "s/WIFI_SSID/$WIFI_SSID/g;s/WIFI_PASSWD/$WIFI_PASSWD/g" secrets.yaml.example > secrets.yaml
       - name: show secrets.yaml
         run: cat secrets.yaml
-      - uses: esphome/build-action@v1.5.2
+      - uses: esphome/build-action@v3.1.0
         id: esphome-build
         with:
           yaml_file: ${{ inputs.file }}
