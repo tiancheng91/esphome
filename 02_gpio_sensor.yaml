@@ -51,11 +51,11 @@ sensor:
 bluetooth_proxy:
   active: true
 
-esp32_ble_tracker:
-  scan_parameters:
-    active: true
-    # interval: 1300ms
-    # window: 1300ms
+# esp32_ble_tracker:
+#   scan_parameters:
+#     active: true
+#     # interval: 1300ms
+#     # window: 1300ms
 
 # Example configuration entry
 binary_sensor:
