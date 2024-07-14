@@ -22,7 +22,7 @@ api:
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
-  output_power: 19dB
+  output_power: 19.7dB
   fast_connect: true
   ap:
     password: "12345678"
