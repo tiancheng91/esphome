@@ -59,11 +59,11 @@ esp32_ble_tracker:
 
 # Example configuration entry
 binary_sensor:
-  - platform: gpio
-    pin: GPIO02
-    name: "sensor01"
-    filters:
-      - delayed_on: 10ms
+  # - platform: gpio
+  #   pin: GPIO02
+  #   name: "sensor01"
+  #   filters:
+  #     - delayed_on: 10ms
   - platform: gpio
     pin: GPIO03
     name: "sensor02"
@@ -99,14 +99,14 @@ binary_sensor:
     name: "sensor08"
     filters:
       - delayed_on: 10ms
-  - platform: gpio
-    pin: GPIO08
-    name: "sensor09"
-    filters:
-      - delayed_on: 10ms
-  - platform: gpio
-    pin: GPIO09
-    name: "sensor10"
-    filters:
-      - delayed_on: 10ms
+  # - platform: gpio
+  #   pin: GPIO08
+  #   name: "sensor09"
+  #   filters:
+  #     - delayed_on: 10ms
+  # - platform: gpio
+  #   pin: GPIO09
+  #   name: "sensor10"
+  #   filters:
+  #     - delayed_on: 10ms
 
