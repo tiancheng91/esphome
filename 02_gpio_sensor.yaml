@@ -66,54 +66,24 @@ sensor:
 
 # Example configuration entry
 binary_sensor:
-  # - platform: gpio
-  #   pin: GPIO02
-  #   name: "sensor01"
-  #   filters:
-  #     - delayed_on: 10ms
   - platform: gpio
-    pin: GPIO03
+    pin: GPIO12
+    name: "sensor01"
+    filters:
+      - delayed_on: 20ms
+  - platform: gpio
+    pin: GPIO18
     name: "sensor02"
     filters:
-      - delayed_on: 100ms
+      - delayed_on: 20ms
   - platform: gpio
-    pin: GPIO10
+    pin: GPIO19
     name: "sensor03"
     filters:
-      - delayed_on: 100ms
+      - delayed_on: 20ms
   - platform: gpio
-    pin: GPIO06
+    pin: GPIO13
     name: "sensor04"
     filters:
-      - delayed_on: 100ms
-  - platform: gpio
-    pin: GPIO07
-    name: "sensor05"
-    filters:
-      - delayed_on: 100ms
-  - platform: gpio
-    pin: GPIO11
-    name: "sensor06"
-    filters:
-      - delayed_on: 100ms
-  - platform: gpio
-    pin: GPIO05
-    name: "sensor07"
-    filters:
-      - delayed_on: 100ms
-  - platform: gpio
-    pin: GPIO04
-    name: "sensor08"
-    filters:
-      - delayed_on: 100ms
-  # - platform: gpio
-  #   pin: GPIO08
-  #   name: "sensor09"
-  #   filters:
-  #     - delayed_on: 10ms
-  # - platform: gpio
-  #   pin: GPIO09
-  #   name: "sensor10"
-  #   filters:
-  #     - delayed_on: 10ms
+      - delayed_on: 20ms
 
