@@ -80,17 +80,17 @@ binary_sensor:
     filters:
       - delayed_on: 20ms
   - platform: gpio
-    pin: GPIO18
+    pin: GPIO01
     name: "sensor02"
     filters:
       - delayed_on: 20ms
   - platform: gpio
-    pin: GPIO19
+    pin: GPIO18
     name: "sensor03"
     filters:
       - delayed_on: 20ms
   - platform: gpio
-    pin: GPIO13
+    pin: GPIO19
     name: "sensor04"
     filters:
       - delayed_on: 20ms
