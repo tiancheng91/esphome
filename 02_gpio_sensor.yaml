@@ -97,4 +97,12 @@ binary_sensor:
     name: "sensor04"
     filters:
       - delayed_on: 20ms
+  - platform: gpio
+    pin: GPIO06
+    name: "radar state"
+    filters:
+      - delayed_on: 20ms
+  - platform: adc
+    pin: GPIO02
+    name: "adc01"
 
