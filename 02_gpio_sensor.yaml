@@ -75,7 +75,7 @@ sensor:
 # Example configuration entry
 binary_sensor:
   - platform: gpio
-    pin: GPIO12
+    pin: GPIO00
     name: "sensor01"
     filters:
       - delayed_on: 20ms
