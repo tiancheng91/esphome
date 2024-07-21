@@ -41,12 +41,19 @@ wifi:
   ap:
     password: "12345678"
 
-# captive_portal:
+captive_portal:
 
 sensor:
   - platform: wifi_signal
     name: "WiFi Signal Sensor"
     update_interval: 120s
+  - platform: aht10
+    variant: AHT10
+    temperature:
+      name: "Living Room Temperature"
+    humidity:
+      name: "Living Room Humidity"
+    update_interval: 90s
 
 # bluetooth_proxy:
 #   active: true
@@ -68,37 +75,37 @@ binary_sensor:
     pin: GPIO03
     name: "sensor02"
     filters:
-      - delayed_on: 10ms
+      - delayed_on: 100ms
   - platform: gpio
     pin: GPIO10
     name: "sensor03"
     filters:
-      - delayed_on: 10ms
+      - delayed_on: 100ms
   - platform: gpio
     pin: GPIO06
     name: "sensor04"
     filters:
-      - delayed_on: 10ms
+      - delayed_on: 100ms
   - platform: gpio
     pin: GPIO07
     name: "sensor05"
     filters:
-      - delayed_on: 10ms
+      - delayed_on: 100ms
   - platform: gpio
     pin: GPIO11
     name: "sensor06"
     filters:
-      - delayed_on: 10ms
+      - delayed_on: 100ms
   - platform: gpio
     pin: GPIO05
     name: "sensor07"
     filters:
-      - delayed_on: 10ms
+      - delayed_on: 100ms
   - platform: gpio
     pin: GPIO04
     name: "sensor08"
     filters:
-      - delayed_on: 10ms
+      - delayed_on: 100ms
   # - platform: gpio
   #   pin: GPIO08
   #   name: "sensor09"
