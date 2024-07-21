@@ -43,12 +43,20 @@ wifi:
 
 captive_portal:
 
+i2c:
+  id: bus_a
+  sda: GPIO04
+  scl: GPIO05
+  scan: true
+  frequency: 8khz
+
 sensor:
   - platform: wifi_signal
     name: "WiFi Signal Sensor"
     update_interval: 120s
   - platform: aht10
     variant: AHT10
+    i2c_id: bus_a
     temperature:
       name: "Living Room Temperature"
     humidity:
