@@ -65,6 +65,9 @@ sensor:
     humidity:
       name: "Living Room Humidity"
     update_interval: 90s
+  - platform: adc
+    pin: GPIO02
+    name: "adc01"
 
 # bluetooth_proxy:
 #   active: true
@@ -102,7 +105,3 @@ binary_sensor:
     name: "radar state"
     filters:
       - delayed_on: 20ms
-  - platform: adc
-    pin: GPIO02
-    name: "adc01"
-
