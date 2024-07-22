@@ -1,17 +1,5 @@
 ## 小米/hass 开关状态桥接器 用于双端同步状态, 可作为寄存器使用
 
-### 小米模组io口定义
-## GND: 1, 24, 26, VCC: 14, 26
-## 输入按键1-4: 4, 3, 2, 33 // C3  19(GPIO2),20(GPIO3),21(GPIO10),22(GPIO6)
-## 输出继电器1-4: 5, 6, 7, 8 // C3  27(GPIO5), 28(GPIO4), 29(GPIO08), 30(GPIO09) 
-## reset: 开关任意按键快按三次，再长按 5S 以上，进入清网状态；所有按键指示灯快闪 5 下表示重置成功 （2Hz 频率）
-# 1,24,26: GND
-# 14,26: 电源3.3v
-# pin24: gpio11 VDD_SPI 供电
-# todo gpio02 是启动控制引脚, 需替换掉
-
-# 继电器状态读取, 状态翻转短按开关50ms
-
 esphome:
   name: esp32c3-gpio-sensor
   # name_add_mac_suffix: true
@@ -44,7 +32,6 @@ wifi:
   fast_connect: true
   ap:
     password: "12345678"
-
 
 i2c:
   id: bus_a
