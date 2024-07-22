@@ -37,6 +37,7 @@ i2c:
   id: bus_a
   sda: GPIO04
   scl: GPIO05
+  frequency: 200kHz
   scan: true
 
 sensor:
