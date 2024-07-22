@@ -38,23 +38,22 @@ i2c:
   sda: GPIO04
   scl: GPIO05
   scan: true
-  frequency: 8khz
 
 sensor:
   - platform: wifi_signal
     name: "WiFi Signal Sensor"
     update_interval: 120s
+  - platform: adc
+    pin: GPIO02
+    name: "adc01"
   - platform: aht10
     variant: AHT10
     i2c_id: bus_a
     temperature:
-      name: "Living Room Temperature"
+      name: "AHT10 Temperature"
     humidity:
-      name: "Living Room Humidity"
+      name: "AHT10 Humidity"
     update_interval: 90s
-  - platform: adc
-    pin: GPIO02
-    name: "adc01"
 
 # bluetooth_proxy:
 #   active: true
