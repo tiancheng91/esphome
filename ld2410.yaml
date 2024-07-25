@@ -2,9 +2,11 @@
 ## 人在传感器
 ## 串口方式接入,能读取到门能量,可以自己实现template判断人在状态
 
-esp8266:
+esphome:
   name: presense
   name_add_mac_suffix: true
+
+esp8266:
   board: esp01_1m
   framework:
     version: recommended
