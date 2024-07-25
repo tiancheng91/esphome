@@ -48,6 +48,7 @@ binary_sensor:
     has_target:
       name: Presence
 
+## 下面都是配置项,可以移除
 select:
   - platform: ld2420
     operating_mode:
@@ -94,16 +95,6 @@ number:
         name: Gate 3 Move Threshold
       still_threshold:
         name: Gate 3 Still Threshold
-    gate_4:
-      move_threshold:
-        name: Gate 4 Move Threshold
-      still_threshold:
-        name: Gate 4 Still Threshold
-    gate_5:
-      move_threshold:
-        name: Gate 5 Move Threshold
-      still_threshold:
-        name: Gate 5 Still Threshold
 
 button:
   - platform: ld2420
