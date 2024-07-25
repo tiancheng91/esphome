@@ -8,12 +8,15 @@ esp8266:
   framework:
     version: recommended
 
-logger:
 api:
 captive_portal:
+logger:
+  baud_rate: 0 # 和 UART 冲突，关闭日志
 ota:
   - platform: esphome
     password: 123456
+web_server:
+  port: 80
 
 wifi:
   ssid: !secret wifi_ssid
@@ -22,7 +25,6 @@ wifi:
   fast_connect: true
   ap:
     password: "12345678"
-
 
 ld2420:
 uart:
@@ -33,6 +35,10 @@ uart:
   baud_rate: 9600
 
 sensor:
+  - platform: uptime
+    name: "${friendly_name} Uptime"
+    id: uptime_sensor
+    update_interval: 15s
   - platform: ld2420
     moving_distance:
       name : Moving Distance
