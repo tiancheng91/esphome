@@ -25,6 +25,12 @@ wifi:
 
 
 ld2420:
+uart:
+  rx_pin:
+    number: GPIO3 
+  tx_pin: 
+    number: GPIO1 
+  baud_rate: 9600
 
 sensor:
   - platform: ld2420
