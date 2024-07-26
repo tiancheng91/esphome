@@ -43,7 +43,7 @@ sensor:
     name: "WiFi Signal Sensor"
     update_interval: 120s
 
-# ESPHome
+esp32_ble_tracker:
 ble_gateway:
   id: blegateway
   on_ble_advertise:
