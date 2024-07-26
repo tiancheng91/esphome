@@ -5,6 +5,9 @@ esphome:
     board_build.mcu: esp32c3
     board_build.variant: esp32c3  
 
+external_components:
+  - source: github://myhomeiot/esphome-components
+
 esp32:
   variant: ESP32C3
   board: airm2m_core_esp32c3
