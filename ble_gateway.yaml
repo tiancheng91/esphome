@@ -1,0 +1,120 @@
+esphome:
+  name: esp32c3-gateway
+  name_add_mac_suffix: true
+  platformio_options:
+    board_build.mcu: esp32c3
+    board_build.variant: esp32c3  
+
+esp32:
+  variant: ESP32C3
+  board: airm2m_core_esp32c3
+  framework:
+    type: esp-idf
+    sdkconfig_options:
+      CONFIG_BT_BLE_50_FEATURES_SUPPORTED: y
+      CONFIG_BT_BLE_42_FEATURES_SUPPORTED: y
+      CONFIG_ESP_TASK_WDT_TIMEOUT_S: "10"    
+
+logger:
+api:
+captive_portal:
+
+# Change the WiFi config to a non-static IP if needed
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  output_power: 19.7dB
+  fast_connect: true
+  ap:
+    password: "12345678"
+
+light:
+  - platform: esp32_rmt_led_strip
+    rgb_order: GRB
+    pin: GPIO08
+    num_leds: 1
+    rmt_channel: 0
+    chipset: ws2812
+    name: "My Light"
+
+
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal Sensor"
+    update_interval: 120s
+
+# ESPHome
+ble_gateway:
+  id: blegateway
+  on_ble_advertise:
+    then:
+      homeassistant.event:
+        event: esphome.on_ble_advertise
+        data:
+          packet: !lambda return packet;
+
+binary_sensor:
+  - platform: homeassistant
+    id: ble_gateway_discovery
+    entity_id: binary_sensor.ble_gateway
+    attribute: discovery
+    on_state:
+      then:
+        lambda: id(blegateway).set_discovery(x);
+
+text_sensor:
+  - platform: homeassistant
+    id: ble_gateway_devices
+    entity_id: binary_sensor.ble_gateway
+    attribute: devices
+    on_value:
+      then:
+        lambda: id(blegateway).set_devices(x);
+
+switch:
+  - platform: template
+    id: switch_ble_gateway_discovery
+    name: BLE Gateway Discovery
+    icon: mdi:bluetooth-connect
+    lambda: return id(blegateway).get_discovery();
+    turn_on_action: [lambda: id(blegateway).set_discovery(true);]
+    turn_off_action: [lambda: id(blegateway).set_discovery(false);]
+    disabled_by_default: true
+    entity_category: config
+
+# Home Assistant
+input_boolean:
+  settings_ble_gateway:
+    name: BLE Gateway
+    icon: mdi:bluetooth
+  settings_ble_gateway_discovery:
+    name: BLE Gateway Discovery
+    icon: mdi:bluetooth-connect
+
+input_text:
+  settings_ble_gateway_add_device:
+    name: BLE Gateway Add Device
+    icon: mdi:bluetooth-connect
+    initial: ''
+
+template:
+  - binary_sensor:
+      - name: BLE Gateway
+        icon: mdi:bluetooth
+        state: "{{ is_state('input_boolean.settings_ble_gateway', 'on') }}"
+        attributes:
+          discovery: "{{ is_state('input_boolean.settings_ble_gateway_discovery', 'on') }}"
+          # devices: "{{ states | selectattr('entity_id', 'search', '^(device_tracker|sensor).ble_') | selectattr('attributes.mac address', 'defined') | map(attribute='attributes.mac address') | unique | sort | join('') | replace(':', '') ~ (states('input_text.settings_ble_gateway_add_device') | replace(':', '') | trim) if is_state('binary_sensor.ble_gateway', 'on') }}"
+          # Important note: In Passive BLE Monitor version 7.8.2 and later 'attributes.mac address' was changed to 'attributes.mac_address', please update your config
+          # devices: "{{ states | selectattr('entity_id', 'search', '^(device_tracker|sensor).ble_') | selectattr('attributes.mac_address', 'defined') | map(attribute='attributes.mac_address') | unique | sort | join('') | replace(':', '') ~ (states('input_text.settings_ble_gateway_add_device') | replace(':', '') | trim) if is_state('binary_sensor.ble_gateway', 'on') }}"
+          # Note: In Home Assistant 2022.x, Passive BLE Monitor version 8.x and later you can use device attribute identifiers
+          devices: >-
+            {% set devices = namespace(items = []) %}
+            {% for s in states | selectattr('entity_id', 'search', '^(device_tracker|sensor).ble_') | map(attribute='entity_id') %}
+              {% set devices.items = devices.items + ([device_id(s)] if device_id(s) else []) %}
+            {% endfor %}
+            {% set ns = namespace(items = []) %}
+            {% for s in devices.items | unique %}
+              {% set ns.items = ns.items + [(device_attr(s, 'identifiers') | first)[1]] %}
+            {% endfor %}
+            {{ ns.items | unique | sort | join('') | replace(':', '') ~ (states('input_text.settings_ble_gateway_add_device') | replace(':', '') | trim) if is_state('binary_sensor.ble_gateway', 'on') }}
