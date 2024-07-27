@@ -49,9 +49,22 @@ sensor:
 # proxy all
 esp32_ble_tracker:
 ble_gateway:
+  id: blegateway
   on_ble_advertise:
     then:
       homeassistant.event:
         event: esphome.on_ble_advertise
         data:
           packet: !lambda return packet;
+          gateway_id: ${device_id}
+
+switch:
+  - platform: template
+    id: switch_ble_gateway_discovery
+    name: BLE Gateway Discovery
+    icon: mdi:bluetooth-connect
+    lambda: return id(blegateway).get_discovery();
+    turn_on_action: [lambda: id(blegateway).set_discovery(true);]
+    turn_off_action: [lambda: id(blegateway).set_discovery(false);]
+    disabled_by_default: true
+    entity_category: config
