@@ -47,6 +47,7 @@ sensor:
     update_interval: 120s
 
 # proxy all
+esp32_ble_tracker:
 ble_gateway:
   on_ble_advertise:
     then:
