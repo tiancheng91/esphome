@@ -58,6 +58,15 @@ ble_gateway:
           packet: !lambda return packet;
           gateway_id: ${device_id}
 
+text_sensor:
+  - platform: homeassistant
+    id: ble_gateway_devices
+    entity_id: binary_sensor.ble_gateway
+    attribute: devices
+    on_value:
+      then:
+        lambda: id(blegateway).set_devices(x);
+
 switch:
   - platform: template
     id: switch_ble_gateway_discovery
