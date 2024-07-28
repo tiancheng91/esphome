@@ -21,6 +21,9 @@ esp32:
 logger:
 api:
 captive_portal:
+ota:
+  - platform: esphome
+    password: 123456
 
 # Change the WiFi config to a non-static IP if needed
 wifi:
