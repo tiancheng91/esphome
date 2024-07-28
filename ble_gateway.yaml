@@ -50,6 +50,15 @@ sensor:
 esp32_ble_tracker:
 ble_gateway:
   id: blegateway
+  devices:
+    - mac_address: A4:C1:38:1D:88:DF
+    - mac_address: A4:C1:38:06:24:EB
+    - mac_address: E4:AA:EC:7D:3D:28
+    - mac_address: 18:C2:3C:2E:34:85
+    - mac_address: A4:C1:38:CE:D5:7F
+    - mac_address: A4:C1:38:6C:F1:28
+    - mac_address: A4:C1:38:39:F4:41
+    - mac_address: A4:C1:38:A3:48:85
   on_ble_advertise:
     then:
       homeassistant.event:
