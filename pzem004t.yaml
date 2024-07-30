@@ -18,6 +18,13 @@ esp32:
 
 logger:
 api:
+ota:
+  - platform: esphome
+    password: 123456
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal Sensor"
+    update_interval: 120s
 
 # Change the WiFi config to a non-static IP if needed
 wifi:
