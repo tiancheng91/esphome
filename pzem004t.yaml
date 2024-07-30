@@ -19,7 +19,6 @@ esp32:
 api:
 web_server:
   port: 80
-  ota: true
 ota:
   - platform: esphome
     password: 123456
