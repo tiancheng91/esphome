@@ -43,7 +43,7 @@ jobs:
         run: sed "s/WIFI_SSID/$WIFI_SSID/g;s/WIFI_PASSWD/$WIFI_PASSWD/g" secrets.yaml.example > secrets.yaml
       - name: show secrets.yaml
         run: cat secrets.yaml
-      - uses: esphome/build-action@v3.1.0
+      - uses: esphome/build-action@v6
         id: esphome-build
         with:
           yaml_file: ${{ inputs.file }}
