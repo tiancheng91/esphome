@@ -35,7 +35,9 @@ switch:
   - platform: gpio
     pin: GPIO1
     name: "Switch1"
+    inverted: true
   - platform: gpio
     pin: GPIO0
     name: "Switch2"
+    inverted: true
     
