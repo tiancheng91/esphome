@@ -36,8 +36,20 @@ switch:
     pin: GPIO1
     name: "Switch1"
     inverted: true
+    id: esp_switch_01
   - platform: gpio
     pin: GPIO0
     name: "Switch2"
     inverted: true
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO9
+      mode: INPUT_PULLUP
+      inverted: true
+    name: "Toggle Button"
+    on_press:
+      then:
+        - switch.toggle: esp_switch_01  
     
