@@ -50,7 +50,9 @@ binary_sensor:
       mode: INPUT_PULLUP
       inverted: true
     name: "Toggle Button"
-    on_press:
+    on_click:
+      min_length: 50ms
+      max_length: 350ms
       then:
         - switch.toggle: esp_switch_02  
     
