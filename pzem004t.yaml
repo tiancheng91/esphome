@@ -1,4 +1,3 @@
-
 esphome:
   name: esp32c3-pzem-power
   name_add_mac_suffix: true
@@ -37,6 +36,10 @@ uart:
   rx_pin: GPIO20
   tx_pin: GPIO21
   baud_rate: 9600
+
+mqtt:
+  broker: !secret mqtt_broker
+  port: 1883
 
 sensor:
   - platform: wifi_signal
