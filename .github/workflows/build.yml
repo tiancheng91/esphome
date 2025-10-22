@@ -46,7 +46,7 @@ jobs:
           WIFI_SSID: ${{ inputs.wifi_ssid }}
           WIFI_PASSWD: ${{ inputs.wifi_passwd }}
           MQTT_BROKER: ${{ inputs.mqtt_broker }}
-        run: sed "s/WIFI_SSID/$WIFI_SSID/g;s/WIFI_PASSWD/$WIFI_PASSWD/g;s/MQTT_BROKER/$MQTT_BROKER/g" secrets.yaml.example > secrets.yaml
+        run: sed "s/WIFI_SSID/$WIFI_SSID/g;s/WIFI_PASSWD/$WIFI_PASSWD/g;s|MQTT_BROKER|$MQTT_BROKER|g" secrets.yaml.example > secrets.yaml
       - name: show secrets.yaml
         run: cat secrets.yaml
       - uses: esphome/build-action@v6
