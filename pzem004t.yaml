@@ -55,6 +55,6 @@ sensor:
       name: "PZEM-004T V3 Frequency"
     power_factor:
       name: "PZEM-004T V3 Power Factor"
-    update_interval: 30s
+    update_interval: 16s
 
     
