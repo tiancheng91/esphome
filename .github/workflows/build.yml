@@ -27,6 +27,11 @@ on:
         required: false
         type: string
         default: "12345678"
+      mqtt_broker:
+        description: MQTT broker address.
+        required: false
+        type: string
+        default: "mqtt://mqtt-broker.local"
 
 jobs:
   build:
@@ -36,11 +41,12 @@ jobs:
       esphome-version: ${{ steps.esphome-build.outputs.esphome-version }}
     steps:
       - uses: actions/checkout@v4
-      - name: setting wifi passwd
+      - name: setting wifi passwd and mqtt broker
         env:
           WIFI_SSID: ${{ inputs.wifi_ssid }}
           WIFI_PASSWD: ${{ inputs.wifi_passwd }}
-        run: sed "s/WIFI_SSID/$WIFI_SSID/g;s/WIFI_PASSWD/$WIFI_PASSWD/g" secrets.yaml.example > secrets.yaml
+          MQTT_BROKER: ${{ inputs.mqtt_broker }}
+        run: sed "s/WIFI_SSID/$WIFI_SSID/g;s/WIFI_PASSWD/$WIFI_PASSWD/g;s/MQTT_BROKER/$MQTT_BROKER/g" secrets.yaml.example > secrets.yaml
       - name: show secrets.yaml
         run: cat secrets.yaml
       - uses: esphome/build-action@v6
